@@ -1,0 +1,16 @@
+{
+  "market": "USA",
+  "alpaca_key_id": "",
+  "alpaca_secret_key": "",
+  "feed": "iex",
+  "ticker_limit": 100,
+  "priority_only": false,
+  "rsi_limit": 30.0,
+  "macd_pct_limit": -2.4,
+  "interval_minutes": 15,
+  "arg_workers": 10,
+  "arg_max_stale_days": 7,
+  "arg_min_nonzero_volume_ratio": 0.35,
+  "telegram_bot_token": "",
+  "telegram_chat_id": ""
+}

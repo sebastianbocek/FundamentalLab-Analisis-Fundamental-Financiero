@@ -1,0 +1,52 @@
+name: Build Windows executable
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install application and packaging dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt pyinstaller
+
+      - name: Package FundamentalLab.exe
+        shell: pwsh
+        run: >-
+          pyinstaller --noconfirm --clean --onefile --name FundamentalLab
+          --collect-all streamlit --collect-all pandas --collect-all numpy
+          --collect-all yfinance --collect-all requests --collect-all openpyxl
+          --hidden-import=streamlit.web.cli
+          --add-data "app.py;."
+          --add-data "fundamentallab;fundamentallab"
+          launch_fundamentallab.py
+
+      - name: Upload executable artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: FundamentalLab-Windows
+          path: dist/FundamentalLab.exe
+          if-no-files-found: error
+
+      - name: Publish executable on GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/FundamentalLab.exe
+          generate_release_notes: true

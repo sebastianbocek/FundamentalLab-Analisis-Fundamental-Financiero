@@ -1,0 +1,20 @@
+# Local Python environments and generated files
+.venv/
+__pycache__/
+*.py[cod]
+build/
+dist/
+*.spec
+
+# Local database and user data
+data/*.sqlite
+data/*.sqlite-*
+data/*.db
+data/*.db-*
+!data/.gitkeep
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+technical_monitor.json

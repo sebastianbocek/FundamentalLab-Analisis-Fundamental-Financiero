@@ -1,0 +1,2 @@
+Si actualizas sobre una instalacion existente, conserva data/fundamentallab.sqlite.
+V2.3 es compatible con la base anterior; al re-escanear guardara el nuevo campo evaluable dentro de criteria_json.
